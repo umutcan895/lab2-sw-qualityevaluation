@@ -54,4 +54,12 @@ return totalWeightedScore/totalWeight;
     public ArrayList<Criterion> getCriteria() {
         return criteria;
     }
+
+
+
+
+
+
+
+
 }

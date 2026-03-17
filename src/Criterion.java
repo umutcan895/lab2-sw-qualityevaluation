@@ -1,113 +1,50 @@
 public class Criterion {
     private String name;
+    private String isoCode;
     private double weight;
-    private String direction;
-    private double minValue;
-    private double maxValue;
+    private String type;
+    private double minThreshold;
+    private double maxThreshold;
     private String unit;
-    private double measuredValue; // will be assinged on runtime
+    private double measuredValue;
 
-    public Criterion(String name, double weight, String direction, double minValue, double maxValue, String unit) {
+    public Criterion(String name, String isoCode, double weight, String type, double minThreshold, double maxThreshold, String unit) {
         this.name = name;
+        this.isoCode = isoCode;
         this.weight = weight;
-        this.direction = direction;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
+        this.type = type;
+        this.minThreshold = minThreshold;
+        this.maxThreshold = maxThreshold;
         this.unit = unit;
+        this.measuredValue = 0.0;
     }
 
-    public double calculateScore(){
-            double initialScore = 0.0;
-if(direction.equals("higher")){
-initialScore = 1+((measuredValue-minValue)/(maxValue-minValue))*4;
-}
-else if(direction.equals("lower")){
-initialScore =5-((measuredValue-minValue)/(maxValue-minValue))*4;
-}
-
-
-    if(initialScore > 5.0 ){
-        initialScore = 5.0;
+    public double calculateScore() {
+        if (type.equalsIgnoreCase("higher")) {
+            if (measuredValue >= maxThreshold) return 5.0;
+            if (measuredValue <= minThreshold) return 1.0;
+            return 1.0 + 4.0 * (measuredValue - minThreshold) / (maxThreshold - minThreshold);
+        } else {
+            if (measuredValue <= minThreshold) return 5.0;
+            if (measuredValue >= maxThreshold) return 1.0;
+            return 5.0 - 4.0 * (measuredValue - minThreshold) / (maxThreshold - minThreshold);
+        }
     }
-    if(initialScore < 1.0 ){
-        initialScore = 1.0;
-    }
-
-initialScore = Math.round(initialScore*2.0)/2.0;
-
-
-    return initialScore;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public String getIsoCode() {
+        return isoCode;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public double getMinValue() {
-        return minValue;
-    }
-
-    public void setMinValue(double minValue) {
-        this.minValue = minValue;
-    }
-
-    public double getMaxValue() {
-        return maxValue;
-    }
-
-    public void setMaxValue(double maxValue) {
-        this.maxValue = maxValue;
-    }
-
     public String getUnit() {
         return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
     public double getMeasuredValue() {
@@ -117,6 +54,9 @@ initialScore = Math.round(initialScore*2.0)/2.0;
     public void setMeasuredValue(double measuredValue) {
         this.measuredValue = measuredValue;
     }
+
+
+
 
 
 

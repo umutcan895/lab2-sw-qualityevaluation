@@ -5,11 +5,9 @@ public class SWSystemData {
 
     public static HashMap<String, ArrayList<SWSystem>> getAllSystems() {
         HashMap<String, ArrayList<SWSystem>> map = new HashMap<>();
-
         ArrayList<SWSystem> webList = new ArrayList<>();
         webList.add(createECommercePlatform());
         map.put("Web", webList);
-
         return map;
     }
 
@@ -38,4 +36,12 @@ public class SWSystemData {
 
         return s;
     }
+
+
+
+
+
+
+
+
 }
